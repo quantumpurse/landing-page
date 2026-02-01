@@ -1,0 +1,25 @@
+{
+  "name": "landing-page",
+  "version": "1.0.0",
+  "description": "**Disclaimer:** While this project has been carefully developed and [externally audited](https://scalebit.xyz/reports/Quantum-Purse-Audit-Report-12-15-2025.pdf) for security, it represents pioneering work in quantum-resistant blockchain technology - **USE AT YOUR OWN RISK.**",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify",
+    "build:ts": "npx tsc",
+    "build": "npm run build:css && npm run build:ts",
+    "watch:css": "npx tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch",
+    "watch:ts": "npx tsc --watch",
+    "dev": "npm run build:css && npm run build:ts",
+    "serve": "npx http-server ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "25.1.0",
+    "autoprefixer": "10.4.24",
+    "postcss": "8.5.6",
+    "tailwindcss": "3.4.19",
+    "typescript": "5.9.3"
+  }
+}
