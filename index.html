@@ -656,14 +656,17 @@ npm run build:app:mac:arm64</code></pre>
                 // Read binary file
                 const file = binaryFileInput.files[0];
                 const fileBuffer = await file.arrayBuffer();
-                const fileBytes = new Uint8Array(fileBuffer);
+
+                // Calculate SHA-256 hash of the file
+                const hashBuffer = await crypto.subtle.digest('SHA-256', fileBuffer);
+                const message = new Uint8Array(hashBuffer);
 
                 // Convert hex strings to Uint8Array
                 const publicKey = hexToBytes(publicKeyHex);
                 const signature = hexToBytes(signatureHex);
 
                 // Verify signature (signature, message, publicKey)
-                const isValid = sphincsVariant.verify(signature, fileBytes, publicKey);
+                const isValid = sphincsVariant.verify(signature, message, publicKey);
 
                 if (isValid) {
                     showResult('success', 'Signature is valid! The binary is authentic.');
