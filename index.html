@@ -6,6 +6,17 @@
     <title>Quantum Purse - Quantum-Safe Desktop Wallet for CKB</title>
     <meta name="description" content="A lightweight, quantum-resistant desktop wallet for the CKB blockchain. Secure your digital assets against quantum threats with SPHINCS+ cryptography.">
     <link rel="stylesheet" href="dist/styles.css">
+
+    <!-- Import map for noble libraries -->
+    <script type="importmap">
+    {
+        "imports": {
+            "@noble/hashes/": "./node_modules/@noble/hashes/",
+            "@noble/curves/": "./node_modules/@noble/curves/",
+            "@noble/post-quantum/": "./node_modules/@noble/post-quantum/"
+        }
+    }
+    </script>
 </head>
 <body class="bg-slate-900 text-gray-100">
     <!-- Navigation -->
@@ -18,6 +29,7 @@
                 <div class="hidden md:flex space-x-8">
                     <a href="#features" class="text-gray-300 hover:text-white transition">Features</a>
                     <a href="#security" class="text-gray-300 hover:text-white transition">Security</a>
+                    <a href="#verify" class="text-gray-300 hover:text-white transition">Verify Binary</a>
                     <a href="#installation" class="text-gray-300 hover:text-white transition">Installation</a>
                     <a href="https://github.com/tea2x/quantum-purse" target="_blank" class="text-gray-300 hover:text-white transition">GitHub</a>
                     <a href="https://quantum-purse.vercel.app/" target="_blank" class="bg-quantum-accent text-slate-900 px-4 py-1 rounded-lg font-semibold hover:bg-cyan-400 transition">Try Demo</a>
@@ -224,6 +236,148 @@
         </div>
     </section>
 
+    <!-- Binary Verifier Section -->
+    <section id="verify" class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/50">
+        <div id="binary-verifier">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-slate-800 rounded-xl p-8 quantum-glow">
+                    <div class="text-center mb-8">
+                        <h3 class="text-3xl font-bold mb-2">Binary Signature Verifier</h3>
+                        <p class="text-gray-300">Verify application binaries using SPHINCS+ quantum-resistant signatures</p>
+                    </div>
+
+                    <!-- SPHINCS+ Variant Selector -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold mb-2">SPHINCS+ Variant</label>
+                        <select id="variant-select" class="w-full bg-slate-700 text-white px-4 py-3 rounded-lg border border-slate-600 focus:border-quantum-accent focus:outline-none">
+                            <option value="SHA2-128s" selected>SHA2-128s</option>
+                            <option value="SHA2-128f">SHA2-128f</option>
+                            <option value="SHA2-192s">SHA2-192s</option>
+                            <option value="SHA2-192f">SHA2-192f</option>
+                            <option value="SHA2-256s">SHA2-256s</option>
+                            <option value="SHA2-256f">SHA2-256f</option>
+                            <option value="SHAKE-128s">SHAKE-128s</option>
+                            <option value="SHAKE-128f">SHAKE-128f</option>
+                            <option value="SHAKE-192s">SHAKE-192s</option>
+                            <option value="SHAKE-192f">SHAKE-192f</option>
+                            <option value="SHAKE-256s">SHAKE-256s</option>
+                            <option value="SHAKE-256f">SHAKE-256f</option>
+                        </select>
+                        <p class="text-sm text-gray-400 mt-2">Select the SPHINCS+ parameter set used to sign the binary</p>
+                    </div>
+
+                    <!-- Binary File Upload -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold mb-2">Binary File</label>
+                        <div class="relative">
+                            <input
+                                type="file"
+                                id="binary-file-input"
+                                class="hidden"
+                                accept="*"
+                            />
+                            <button
+                                id="binary-file-button"
+                                class="w-full bg-slate-700 hover:bg-slate-600 text-white px-4 py-3 rounded-lg border border-slate-600 transition text-left flex items-center justify-between"
+                            >
+                                <span id="binary-file-label" class="text-gray-400">Choose binary file...</span>
+                                <svg class="w-5 h-5 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="binary-file-info" class="hidden mt-2 p-3 bg-slate-700 rounded-lg">
+                            <p class="text-sm text-gray-300"><span class="font-semibold">File:</span> <span id="binary-file-name"></span></p>
+                            <p class="text-sm text-gray-300"><span class="font-semibold">Size:</span> <span id="binary-file-size"></span></p>
+                            <p class="text-sm text-gray-300"><span class="font-semibold">SHA256:</span> <span id="binary-file-sha256" class="font-mono text-xs break-all">Calculating...</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Public Key Input -->
+                    <div class="mb-6">
+                        <label for="public-key-input" class="block text-sm font-semibold mb-2">Public Key (Hex)</label>
+                        <textarea
+                            id="public-key-input"
+                            rows="3"
+                            class="w-full bg-slate-700 text-white px-4 py-3 rounded-lg border border-slate-600 focus:border-quantum-accent focus:outline-none font-mono text-sm"
+                            placeholder="Enter the public key in hexadecimal format..."
+                        ></textarea>
+                        <p class="text-sm text-gray-400 mt-2">Paste the SPHINCS+ public key used to sign the binary</p>
+                    </div>
+
+                    <!-- Signature Input -->
+                    <div class="mb-6">
+                        <label for="signature-input" class="block text-sm font-semibold mb-2">Signature (Hex)</label>
+                        <textarea
+                            id="signature-input"
+                            rows="4"
+                            class="w-full bg-slate-700 text-white px-4 py-3 rounded-lg border border-slate-600 focus:border-quantum-accent focus:outline-none font-mono text-sm"
+                            placeholder="Enter the signature in hexadecimal format..."
+                        ></textarea>
+                        <p class="text-sm text-gray-400 mt-2">Paste the SPHINCS+ signature for this binary</p>
+                    </div>
+
+                    <!-- Verify Button -->
+                    <button
+                        id="verify-button"
+                        class="w-full bg-quantum-primary hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold text-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                        onclick="verifyBinarySignature()"
+                    >
+                        Verify Signature
+                    </button>
+
+                    <!-- Result Display -->
+                    <div id="result-container" class="hidden mt-6"></div>
+                </div>
+
+                <!-- Info Section -->
+                <div class="mt-8 grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800/50 p-6 rounded-xl">
+                        <h4 class="text-lg font-semibold mb-3 flex items-center">
+                            <svg class="w-5 h-5 text-quantum-accent mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                            How It Works
+                        </h4>
+                        <ol class="space-y-2 text-sm text-gray-300 list-decimal list-inside">
+                            <li>Upload the binary file you want to verify</li>
+                            <li>Select the SPHINCS+ variant that was used for signing</li>
+                            <li>Enter the public key and signature (both in hex format)</li>
+                            <li>Click "Verify Signature" to check authenticity</li>
+                        </ol>
+                    </div>
+
+                    <div class="bg-slate-800/50 p-6 rounded-xl">
+                        <h4 class="text-lg font-semibold mb-3 flex items-center">
+                            <svg class="w-5 h-5 text-yellow-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                            Security Notes
+                        </h4>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li class="flex items-start">
+                                <span class="text-quantum-accent mr-2">•</span>
+                                <span>All verification happens locally in your browser</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-quantum-accent mr-2">•</span>
+                                <span>No data is sent to any server</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-quantum-accent mr-2">•</span>
+                                <span>Binary is hashed using SHA-256 before verification</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-quantum-accent mr-2">•</span>
+                                <span>Quantum-resistant SPHINCS+ cryptography</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Installation Section -->
     <section id="installation" class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/50">
         <div class="max-w-7xl mx-auto">
@@ -379,5 +533,210 @@ npm run build:app:mac:arm64</code></pre>
     </footer>
 
     <script src="dist/main.js"></script>
+
+    <!-- SPHINCS+ Verification Module -->
+    <script type="module">
+        import { slh_dsa_sha2_128s, slh_dsa_sha2_128f, slh_dsa_sha2_192s, slh_dsa_sha2_192f, slh_dsa_sha2_256s, slh_dsa_sha2_256f, slh_dsa_shake_128s, slh_dsa_shake_128f, slh_dsa_shake_192s, slh_dsa_shake_192f, slh_dsa_shake_256s, slh_dsa_shake_256f } from '@noble/post-quantum/slh-dsa.js';
+
+        // SPHINCS+ variant mapping
+        const SPHINCS_VARIANTS = {
+            'SHA2-128s': slh_dsa_sha2_128s,
+            'SHA2-128f': slh_dsa_sha2_128f,
+            'SHA2-192s': slh_dsa_sha2_192s,
+            'SHA2-192f': slh_dsa_sha2_192f,
+            'SHA2-256s': slh_dsa_sha2_256s,
+            'SHA2-256f': slh_dsa_sha2_256f,
+            'SHAKE-128s': slh_dsa_shake_128s,
+            'SHAKE-128f': slh_dsa_shake_128f,
+            'SHAKE-192s': slh_dsa_shake_192s,
+            'SHAKE-192f': slh_dsa_shake_192f,
+            'SHAKE-256s': slh_dsa_shake_256s,
+            'SHAKE-256f': slh_dsa_shake_256f,
+        };
+
+        // Helper function to convert hex string to Uint8Array
+        function hexToBytes(hex) {
+            if (hex.length % 2 !== 0) {
+                throw new Error('Invalid hex string length');
+            }
+            const bytes = new Uint8Array(hex.length / 2);
+            for (let i = 0; i < hex.length; i += 2) {
+                bytes[i / 2] = parseInt(hex.substring(i, i + 2), 16);
+            }
+            return bytes;
+        }
+
+        // Helper function to show verification result
+        function showResult(type, message) {
+            const resultContainer = document.getElementById('result-container');
+            if (!resultContainer) return;
+
+            let icon = '';
+            let bgColor = '';
+            let textColor = '';
+            let borderColor = '';
+
+            if (type === 'success') {
+                icon = `<svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>`;
+                bgColor = 'bg-green-900/20';
+                textColor = 'text-green-300';
+                borderColor = 'border-green-700';
+            } else if (type === 'error') {
+                icon = `<svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>`;
+                bgColor = 'bg-red-900/20';
+                textColor = 'text-red-300';
+                borderColor = 'border-red-700';
+            } else {
+                icon = `<svg class="w-8 h-8 text-blue-500 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                </svg>`;
+                bgColor = 'bg-blue-900/20';
+                textColor = 'text-blue-300';
+                borderColor = 'border-blue-700';
+            }
+
+            resultContainer.innerHTML = `
+                <div class="p-6 ${bgColor} border ${borderColor} rounded-lg">
+                    <div class="flex items-center gap-4">
+                        ${icon}
+                        <p class="${textColor} text-lg font-semibold">${message}</p>
+                    </div>
+                </div>
+            `;
+            resultContainer.classList.remove('hidden');
+        }
+
+        // Binary verification function
+        async function verifyBinarySignature() {
+            const resultContainer = document.getElementById('result-container');
+            if (!resultContainer) return;
+
+            try {
+                // Get inputs
+                const variantSelect = document.getElementById('variant-select');
+                const binaryFileInput = document.getElementById('binary-file-input');
+                const publicKeyInput = document.getElementById('public-key-input');
+                const signatureInput = document.getElementById('signature-input');
+
+                // Validation
+                if (!binaryFileInput.files || binaryFileInput.files.length === 0) {
+                    showResult('error', 'Please select a binary file.');
+                    return;
+                }
+
+                const publicKeyHex = publicKeyInput.value.trim().replace(/\s+/g, '');
+                const signatureHex = signatureInput.value.trim().replace(/\s+/g, '');
+
+                if (!publicKeyHex) {
+                    showResult('error', 'Please enter the public key.');
+                    return;
+                }
+
+                if (!signatureHex) {
+                    showResult('error', 'Please enter the signature.');
+                    return;
+                }
+
+                // Show loading state
+                showResult('loading', 'Verifying signature...');
+
+                // Get selected variant
+                const variant = variantSelect.value;
+                const sphincsVariant = SPHINCS_VARIANTS[variant];
+
+                if (!sphincsVariant) {
+                    showResult('error', `Unsupported SPHINCS+ variant: ${variant}`);
+                    return;
+                }
+
+                // Read binary file
+                const file = binaryFileInput.files[0];
+                const fileBuffer = await file.arrayBuffer();
+                const fileBytes = new Uint8Array(fileBuffer);
+
+                // Convert hex strings to Uint8Array
+                const publicKey = hexToBytes(publicKeyHex);
+                const signature = hexToBytes(signatureHex);
+
+                // Verify signature (signature, message, publicKey)
+                const isValid = sphincsVariant.verify(signature, fileBytes, publicKey);
+
+                if (isValid) {
+                    showResult('success', 'Signature is valid! The binary is authentic.');
+                } else {
+                    showResult('error', 'Signature verification failed! The binary may be tampered with.');
+                }
+            } catch (error) {
+                console.error('Verification error:', error);
+                showResult('error', `Verification error: ${error.message || 'Unknown error'}`);
+            }
+        }
+
+        // Make verifyBinarySignature available globally
+        window.verifyBinarySignature = verifyBinarySignature;
+    </script>
+
+    <!-- Inline script for Binary Verifier UI -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Binary file handling
+            const binaryFileButton = document.getElementById('binary-file-button');
+            const binaryFileInput = document.getElementById('binary-file-input');
+            const binaryFileLabel = document.getElementById('binary-file-label');
+            const binaryFileInfo = document.getElementById('binary-file-info');
+            const binaryFileName = document.getElementById('binary-file-name');
+            const binaryFileSize = document.getElementById('binary-file-size');
+            const binaryFileSha256 = document.getElementById('binary-file-sha256');
+
+            if (binaryFileButton && binaryFileInput) {
+                binaryFileButton.addEventListener('click', function() {
+                    binaryFileInput.click();
+                });
+
+                binaryFileInput.addEventListener('change', async function() {
+                    const file = binaryFileInput.files[0];
+                    if (file) {
+                        binaryFileLabel.textContent = file.name;
+                        binaryFileLabel.classList.remove('text-gray-400');
+                        binaryFileLabel.classList.add('text-white');
+
+                        binaryFileName.textContent = file.name;
+                        binaryFileSize.textContent = formatFileSize(file.size);
+                        binaryFileSha256.textContent = 'Calculating...';
+                        binaryFileInfo.classList.remove('hidden');
+
+                        // Calculate SHA256
+                        try {
+                            const hash = await calculateSHA256(file);
+                            binaryFileSha256.textContent = hash;
+                        } catch (error) {
+                            binaryFileSha256.textContent = 'Error calculating hash';
+                            console.error('SHA256 calculation error:', error);
+                        }
+                    }
+                });
+            }
+
+            async function calculateSHA256(file) {
+                const buffer = await file.arrayBuffer();
+                const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                return hashHex;
+            }
+
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+            }
+        });
+    </script>
 </body>
 </html>

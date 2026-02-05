@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build:css": "npx tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify",
-    "build:ts": "npx tsc",
+    "build:ts": "npx esbuild src/main.ts --bundle --outfile=dist/main.js --format=iife --target=es2020 --sourcemap",
     "build": "npm run build:css && npm run build:ts",
     "watch:css": "npx tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch",
-    "watch:ts": "npx tsc --watch",
+    "watch:ts": "npx esbuild src/main.ts --bundle --outfile=dist/main.js --format=iife --target=es2020 --sourcemap --watch",
     "dev": "npm run build:css && npm run build:ts",
     "serve": "npx http-server ."
   },
@@ -21,5 +21,8 @@
     "postcss": "8.5.6",
     "tailwindcss": "3.4.19",
     "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "@noble/post-quantum": "0.5.4"
   }
 }
