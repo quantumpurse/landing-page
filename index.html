@@ -154,24 +154,24 @@
     <section id="security" class="py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Quantum-Safe Security Levels</h2>
+                <h2 class="text-4xl font-bold mb-4">Quantum-Safe Security Categories</h2>
                 <p class="text-xl text-gray-300">Choose your security parameter based on your needs</p>
             </div>
 
             <div class="bg-slate-800 rounded-xl p-8 quantum-glow">
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-quantum-accent mb-2">Level 1</div>
+                        <div class="text-3xl font-bold text-quantum-accent mb-2">Category 1</div>
                         <div class="text-xl font-semibold mb-2">128-bit Security</div>
                         <p class="text-gray-300">36-word mnemonic. Equivalent to AES-128 key search resistance.</p>
                     </div>
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-quantum-secondary mb-2">Level 3</div>
+                        <div class="text-3xl font-bold text-quantum-secondary mb-2">Category 3</div>
                         <div class="text-xl font-semibold mb-2">192-bit Security</div>
                         <p class="text-gray-300">54-word mnemonic. Equivalent to AES-192 key search resistance.</p>
                     </div>
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-quantum-primary mb-2">Level 5</div>
+                        <div class="text-3xl font-bold text-quantum-primary mb-2">Category 5</div>
                         <div class="text-xl font-semibold mb-2">256-bit Security</div>
                         <p class="text-gray-300">72-word mnemonic. Maximum security, equivalent to AES-256.</p>
                     </div>
@@ -386,49 +386,22 @@
                 <p class="text-xl text-gray-300">Download Quantum Purse or build from source</p>
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-12">
+            <div class="grid lg:grid-cols-2 gap-12 items-stretch">
                 <!-- Pre-built Binaries -->
-                <div>
+                <div class="flex flex-col">
                     <h3 class="text-2xl font-semibold mb-6">Download Pre-built Binaries</h3>
-                    <div class="space-y-4">
-                        <a href="https://github.com/tea2x/quantum-purse/releases" target="_blank" class="block bg-slate-800 p-4 rounded-lg hover:bg-slate-700 transition">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <h4 class="font-semibold">macOS</h4>
-                                    <p class="text-sm text-gray-400">Apple Silicon & Intel</p>
-                                </div>
-                                <svg class="w-6 h-6 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
-                                </svg>
+                    <a href="https://github.com/tea2x/quantum-purse/releases" target="_blank" class="block bg-slate-800 p-4 rounded-lg hover:bg-slate-700 transition">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-semibold">Latest Release</h4>
+                                <p class="text-sm text-gray-400">Available for macOS (Apple Silicon & Intel), Windows, and Linux.</p>
                             </div>
-                        </a>
-
-                        <a href="https://github.com/tea2x/quantum-purse/releases" target="_blank" class="block bg-slate-800 p-4 rounded-lg hover:bg-slate-700 transition">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <h4 class="font-semibold">Windows</h4>
-                                    <p class="text-sm text-gray-400">64-bit</p>
-                                </div>
-                                <svg class="w-6 h-6 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
-                                </svg>
-                            </div>
-                        </a>
-
-                        <a href="https://github.com/tea2x/quantum-purse/releases" target="_blank" class="block bg-slate-800 p-4 rounded-lg hover:bg-slate-700 transition">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <h4 class="font-semibold">Linux</h4>
-                                    <p class="text-sm text-gray-400">64-bit</p>
-                                </div>
-                                <svg class="w-6 h-6 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
-                                </svg>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="mt-6 p-4 bg-yellow-900/20 border border-yellow-700 rounded-lg">
+                            <svg class="w-6 h-6 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                            </svg>
+                        </div>
+                    </a>
+                    <div class="mt-auto pt-6 p-4 bg-yellow-900/20 border border-yellow-700 rounded-lg">
                         <p class="text-sm text-yellow-300">
                             <strong>Note:</strong> These are not reproducible builds. For maximum security, consider building from source or ask a trusted distributer to sign the binaries for you.
                         </p>
@@ -436,33 +409,23 @@
                 </div>
 
                 <!-- Build from Source -->
-                <div>
+                <div class="flex flex-col">
                     <h3 class="text-2xl font-semibold mb-6">Build from Source</h3>
-                    <div class="bg-slate-800 rounded-lg p-6">
-                        <h4 class="font-semibold mb-3">Requirements:</h4>
-                        <ul class="text-gray-300 mb-4 space-y-1">
-                            <li>• Node.js ≥22.12</li>
-                            <li>• Brave, Chrome, or Safari browser</li>
-                        </ul>
-
-                        <h4 class="font-semibold mb-3">Quick Start:</h4>
-                        <div class="bg-slate-900 p-4 rounded-lg overflow-x-auto">
-                            <pre class="text-sm text-gray-300"><code># Clone repository
-git clone https://github.com/tea2x/quantum-purse.git
-cd quantum-purse
-
-# Install dependencies
-npm install
-
-# Build web app
-npm run build:web
-
-# Start web app
-npm run start:web
-
-# Or build native app (macOS example)
-npm run build:app:mac:arm64</code></pre>
+                    <a href="https://github.com/quantumpurse/quantum-purse?tab=readme-ov-file#build-from-source" target="_blank" class="block bg-slate-800 p-4 rounded-lg hover:bg-slate-700 transition">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-semibold">Build Instructions</h4>
+                                <p class="text-sm text-gray-400">View requirements and platform-specific commands on GitHub.</p>
+                            </div>
+                            <svg class="w-6 h-6 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
                         </div>
+                    </a>
+                    <div class="mt-auto pt-6 p-4 bg-yellow-900/20 border border-yellow-700 rounded-lg">
+                        <p class="text-sm text-yellow-300">
+                            <strong>Tip:</strong> Building from source lets you verify the code yourself and is the most secure option currently.
+                        </p>
                     </div>
                 </div>
             </div>
