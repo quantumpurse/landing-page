@@ -4,8 +4,10 @@
 
 /* Custom styles for Quantum Purse landing page */
 @layer base {
-  html {
+  html,
+  body {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 }
 
