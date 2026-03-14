@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Quantum Purse - Quantum-Safe Desktop Wallet for CKB</title>
     <meta name="description" content="A lightweight, quantum-resistant desktop wallet for the CKB blockchain. Secure your digital assets against quantum threats with SPHINCS+ cryptography.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="dist/styles.css">
 
     <!-- Import map for noble libraries -->
@@ -18,216 +24,267 @@
     }
     </script>
 </head>
-<body class="bg-slate-900 text-gray-100">
+<body class="text-gray-300">
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-slate-900/95 backdrop-blur-sm z-50 border-b border-slate-800">
+    <nav id="main-nav" class="fixed top-0 w-full z-50 transition-all duration-500" style="background: rgba(13, 19, 33, 0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold gradient-text">Quantum Purse</h1>
+                <div class="flex items-center gap-3">
+                    <!-- Crystalline logo mark -->
+                    <div class="w-8 h-8 relative">
+                        <div class="absolute inset-0 rotate-45 border border-quantum-accent/40 rounded-sm"></div>
+                        <div class="absolute inset-1.5 rotate-12 border border-quantum-secondary/30 rounded-sm"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-1.5 h-1.5 bg-quantum-accent rounded-full"></div>
+                        </div>
+                    </div>
+                    <h1 class="text-lg font-semibold tracking-tight text-white">Quantum Purse</h1>
                 </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#features" class="text-gray-300 hover:text-white transition">Features</a>
-                    <a href="#security" class="text-gray-300 hover:text-white transition">Security</a>
-                    <a href="#verify" class="text-gray-300 hover:text-white transition">Verify Binary</a>
-                    <a href="#installation" class="text-gray-300 hover:text-white transition">Installation</a>
-                    <a href="https://github.com/tea2x/quantum-purse" target="_blank" class="text-gray-300 hover:text-white transition">GitHub</a>
-                    <a href="https://quantum-purse.vercel.app/" target="_blank" class="bg-quantum-accent text-slate-900 px-4 py-1 rounded-lg font-semibold hover:bg-cyan-400 transition">Try Demo</a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">Features</a>
+                    <a href="#security" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">Security</a>
+                    <a href="#verify" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">Verify Binary</a>
+                    <a href="#installation" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">Installation</a>
+                    <a href="https://github.com/tea2x/quantum-purse" target="_blank" class="text-sm text-gray-400 hover:text-white transition-colors duration-300">GitHub</a>
+                    <a href="https://quantum-purse.vercel.app/" target="_blank" class="text-sm px-4 py-1.5 rounded-md bg-quantum-accent/10 text-quantum-accent border border-quantum-accent/20 hover:bg-quantum-accent hover:text-quantum-surface font-medium transition-all duration-300">Try Demo</a>
                 </div>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-400 hover:text-white transition-colors" aria-label="Toggle menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
         </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-quantum-border/50">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#features" class="block text-sm text-gray-400 hover:text-white transition-colors">Features</a>
+                <a href="#security" class="block text-sm text-gray-400 hover:text-white transition-colors">Security</a>
+                <a href="#verify" class="block text-sm text-gray-400 hover:text-white transition-colors">Verify Binary</a>
+                <a href="#installation" class="block text-sm text-gray-400 hover:text-white transition-colors">Installation</a>
+                <a href="https://github.com/tea2x/quantum-purse" target="_blank" class="block text-sm text-gray-400 hover:text-white transition-colors">GitHub</a>
+                <a href="https://quantum-purse.vercel.app/" target="_blank" class="block text-sm px-4 py-2 rounded-md bg-quantum-accent/10 text-quantum-accent border border-quantum-accent/20 text-center font-medium">Try Demo</a>
+            </div>
+        </div>
+        <!-- Nav bottom border with gradient -->
+        <div class="section-line"></div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="relative overflow-hidden pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto text-center">
-            <div class="mb-8">
-                <span class="bg-quantum-secondary/20 text-quantum-accent px-3 py-1 rounded-full text-sm font-semibold">
+    <section id="hero" class="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <!-- Lattice grid background -->
+        <div class="lattice-bg"></div>
+        <!-- Gradient orb -->
+        <div class="hero-orb" style="top: 10%; left: 50%; transform: translateX(-50%);"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto text-center">
+            <div class="mb-6 reveal">
+                <span class="tag border-quantum-accent/30 text-quantum-accent">
+                    <span class="w-1.5 h-1.5 bg-quantum-accent rounded-full mr-2 animate-pulse"></span>
                     Quantum-Resistant Security
                 </span>
             </div>
-            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+
+            <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-8 reveal" style="animation-delay: 100ms;">
                 <span class="gradient-text">Secure Your CKB</span>
-                <br />
-                <span class="text-white">Against Quantum Threats</span>
+                <br>
+                <span class="text-white/90">Against Quantum Threats</span>
             </h1>
-            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+
+            <p class="text-base sm:text-lg text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed reveal" style="animation-delay: 200ms;">
                 A lightweight, quantum-safe desktop wallet for the CKB blockchain.
                 Built with SPHINCS+ cryptography to protect your digital assets in the quantum computing era.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#installation" class="bg-quantum-primary hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition">
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal" style="animation-delay: 300ms;">
+                <a href="#installation" class="btn-primary">
                     Download Wallet
                 </a>
-                <a href="https://quantum-purse.vercel.app/" target="_blank" class="border border-quantum-accent text-quantum-accent hover:bg-quantum-accent hover:text-slate-900 px-8 py-3 rounded-lg font-semibold text-lg transition">
+                <a href="https://quantum-purse.vercel.app/" target="_blank" class="btn-outline">
                     Try Web Demo
                 </a>
             </div>
-            <div class="mt-12">
-                <p class="text-sm text-gray-400 mb-2">Externally Audited by</p>
-                <a href="https://scalebit.xyz/reports/Quantum-Purse-Audit-Report-12-15-2025.pdf" target="_blank" class="text-quantum-accent hover:text-cyan-400 underline">
+
+            <div class="mt-16 reveal" style="animation-delay: 400ms;">
+                <p class="text-xs text-gray-500 mb-2 uppercase tracking-widest">Externally Audited by</p>
+                <a href="https://scalebit.xyz/reports/Quantum-Purse-Audit-Report-12-15-2025.pdf" target="_blank" class="text-sm text-quantum-accent/80 hover:text-quantum-accent underline decoration-quantum-accent/20 hover:decoration-quantum-accent/60 underline-offset-4 transition-all duration-300">
                     ScaleBit Security Audit Report
                 </a>
             </div>
         </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 animate-float-slow">
+            <span class="text-xs uppercase tracking-widest">Scroll</span>
+            <div class="w-px h-8 bg-gradient-to-b from-gray-500 to-transparent"></div>
+        </div>
     </section>
 
+    <div class="section-line"></div>
+
     <!-- Features Section -->
-    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/50">
+    <section id="features" class="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 section-glow">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Key Features</h2>
-                <p class="text-xl text-gray-300">Advanced security meets user-friendly design</p>
+            <div class="text-center mb-20 reveal">
+                <p class="text-xs text-quantum-accent uppercase tracking-[0.2em] mb-4">Capabilities</p>
+                <h2 class="font-display text-4xl sm:text-5xl text-white mb-4">Key Features</h2>
+                <p class="text-gray-400 max-w-lg mx-auto">Advanced security meets user-friendly design</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger">
                 <!-- Feature 1 -->
-                <div class="bg-slate-800 p-6 rounded-xl card-hover">
-                    <div class="text-quantum-accent mb-4">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                <div class="card-glass rounded-xl p-8 reveal">
+                    <div class="w-12 h-12 rounded-lg bg-quantum-accent/10 border border-quantum-accent/20 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">SPHINCS+ Cryptography</h3>
-                    <p class="text-gray-300">NIST-approved FIPS205 quantum-resistant signatures with multiple security levels</p>
+                    <h3 class="text-lg font-semibold text-white mb-2">SPHINCS+ Cryptography</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">NIST-approved FIPS205 quantum-resistant signatures with multiple security levels.</p>
                 </div>
 
                 <!-- Feature 2 -->
-                <div class="bg-slate-800 p-6 rounded-xl card-hover">
-                    <div class="text-quantum-accent mb-4">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                <div class="card-glass rounded-xl p-8 reveal">
+                    <div class="w-12 h-12 rounded-lg bg-quantum-secondary/10 border border-quantum-secondary/20 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-quantum-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Local Security</h3>
-                    <p class="text-gray-300">AES256 encryption, Scrypt password hashing, and secure IndexedDB storage</p>
+                    <h3 class="text-lg font-semibold text-white mb-2">Local Security</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">AES256 encryption, Scrypt password hashing, and secure IndexedDB storage.</p>
                 </div>
 
                 <!-- Feature 3 -->
-                <div class="bg-slate-800 p-6 rounded-xl card-hover">
-                    <div class="text-quantum-accent mb-4">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                <div class="card-glass rounded-xl p-8 reveal">
+                    <div class="w-12 h-12 rounded-lg bg-quantum-emerald/10 border border-quantum-emerald/20 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-quantum-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Light Client</h3>
-                    <p class="text-gray-300">True light wallet with CKB light client node - no middleman RPC endpoints</p>
+                    <h3 class="text-lg font-semibold text-white mb-2">Light Client</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">True light wallet with CKB light client node - no middleman RPC endpoints.</p>
                 </div>
 
                 <!-- Feature 4 -->
-                <div class="bg-slate-800 p-6 rounded-xl card-hover">
-                    <div class="text-quantum-accent mb-4">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                <div class="card-glass rounded-xl p-8 reveal">
+                    <div class="w-12 h-12 rounded-lg bg-quantum-primary/10 border border-quantum-primary/20 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Custom BIP39</h3>
-                    <p class="text-gray-300">Enhanced mnemonic standard with 36-72 word phrases for quantum-level security</p>
+                    <h3 class="text-lg font-semibold text-white mb-2">Custom BIP39</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Enhanced mnemonic standard with 36-72 word phrases for quantum-level security.</p>
                 </div>
 
                 <!-- Feature 5 -->
-                <div class="bg-slate-800 p-6 rounded-xl card-hover">
-                    <div class="text-quantum-accent mb-4">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                <div class="card-glass rounded-xl p-8 reveal">
+                    <div class="w-12 h-12 rounded-lg bg-quantum-accent/10 border border-quantum-accent/20 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Cross-Platform</h3>
-                    <p class="text-gray-300">Native apps for Windows, macOS, Linux, and web demo for browsers</p>
+                    <h3 class="text-lg font-semibold text-white mb-2">Cross-Platform</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Native apps for Windows, macOS, Linux, and web demo for browsers.</p>
                 </div>
 
                 <!-- Feature 6 -->
-                <div class="bg-slate-800 p-6 rounded-xl card-hover">
-                    <div class="text-quantum-accent mb-4">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                <div class="card-glass rounded-xl p-8 reveal">
+                    <div class="w-12 h-12 rounded-lg bg-quantum-secondary/10 border border-quantum-secondary/20 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-quantum-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Wallet Recovery</h3>
-                    <p class="text-gray-300">Automatic wallet restoration from seed phrases with sequential key generation</p>
+                    <h3 class="text-lg font-semibold text-white mb-2">Wallet Recovery</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Automatic wallet restoration from seed phrases with sequential key generation.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <div class="section-line"></div>
+
     <!-- Security Section -->
-    <section id="security" class="py-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Quantum-Safe Security Categories</h2>
-                <p class="text-xl text-gray-300">Choose your security parameter based on your needs</p>
+    <section id="security" class="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 grid-bg">
+        <div class="relative z-10 max-w-7xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <p class="text-xs text-quantum-secondary uppercase tracking-[0.2em] mb-4">Protection Levels</p>
+                <h2 class="font-display text-4xl sm:text-5xl text-white mb-4">Quantum-Safe Security Categories</h2>
+                <p class="text-gray-400 max-w-lg mx-auto">Choose your security parameter based on your needs.</p>
             </div>
 
-            <div class="bg-slate-800 rounded-xl p-8 quantum-glow">
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-quantum-accent mb-2">Category 1</div>
-                        <div class="text-xl font-semibold mb-2">128-bit Security</div>
-                        <p class="text-gray-300">36-word mnemonic. Equivalent to AES-128 key search resistance.</p>
+            <!-- Security Tiers -->
+            <div class="grid md:grid-cols-3 gap-6 mb-12 stagger">
+                <div class="tier-card reveal text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-quantum-accent/10 border border-quantum-accent/20 mb-6">
+                        <span class="text-2xl font-bold text-quantum-accent">1</span>
                     </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-quantum-secondary mb-2">Category 3</div>
-                        <div class="text-xl font-semibold mb-2">192-bit Security</div>
-                        <p class="text-gray-300">54-word mnemonic. Equivalent to AES-192 key search resistance.</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-quantum-primary mb-2">Category 5</div>
-                        <div class="text-xl font-semibold mb-2">256-bit Security</div>
-                        <p class="text-gray-300">72-word mnemonic. Maximum security, equivalent to AES-256.</p>
-                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-1">Category 1</h3>
+                    <p class="text-sm text-quantum-accent mb-4">128-bit Security</p>
+                    <p class="text-sm text-gray-400 leading-relaxed">36-word mnemonic. Equivalent to AES-128 key search resistance.</p>
                 </div>
 
-                <div class="mt-8 p-4 bg-slate-700 rounded-lg">
-                    <p class="text-center text-gray-300">
-                        <strong>Recommendation:</strong> Start with Sha2-256s for maximum security or Sha2-128s for easier backup management.
+                <div class="tier-card reveal text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-quantum-secondary/10 border border-quantum-secondary/20 mb-6">
+                        <span class="text-2xl font-bold text-quantum-secondary">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-1">Category 3</h3>
+                    <p class="text-sm text-quantum-secondary mb-4">192-bit Security</p>
+                    <p class="text-sm text-gray-400 leading-relaxed">54-word mnemonic. Equivalent to AES-192 key search resistance.</p>
+                </div>
+
+                <div class="tier-card reveal text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-quantum-primary/10 border border-quantum-primary/20 mb-6">
+                        <span class="text-2xl font-bold text-blue-400">5</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-1">Category 5</h3>
+                    <p class="text-sm text-blue-400 mb-4">256-bit Security</p>
+                    <p class="text-sm text-gray-400 leading-relaxed">72-word mnemonic. Maximum security, equivalent to AES-256.</p>
+                </div>
+            </div>
+
+            <!-- Recommendation -->
+            <div class="reveal max-w-3xl mx-auto mb-16">
+                <div class="rounded-xl p-5 border border-quantum-border bg-quantum-surface-light/50 text-center">
+                    <p class="text-sm text-gray-300">
+                        <span class="text-quantum-accent font-semibold">Recommendation:</span> Start with Sha2-256s for maximum security or Sha2-128s for easier backup management.
                     </p>
                 </div>
             </div>
 
-            <div class="mt-12 grid md:grid-cols-2 gap-8">
-                <div class="bg-slate-800/50 p-6 rounded-xl">
-                    <h3 class="text-2xl font-semibold mb-4">12 SPHINCS+ Parameter Sets</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li class="flex items-center">
-                            <svg class="w-5 h-5 text-quantum-accent mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                            </svg>
+            <!-- Parameter Sets & Notes -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="card-glass rounded-xl p-8 reveal">
+                    <h3 class="text-lg font-semibold text-white mb-6">12 SPHINCS+ Parameter Sets</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3 text-sm text-gray-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-quantum-accent flex-shrink-0"></span>
                             2 Hash algorithms: SHA2, SHAKE
                         </li>
-                        <li class="flex items-center">
-                            <svg class="w-5 h-5 text-quantum-accent mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                            </svg>
+                        <li class="flex items-center gap-3 text-sm text-gray-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-quantum-secondary flex-shrink-0"></span>
                             3 Security levels: 128, 192, 256 bits
                         </li>
-                        <li class="flex items-center">
-                            <svg class="w-5 h-5 text-quantum-accent mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                            </svg>
+                        <li class="flex items-center gap-3 text-sm text-gray-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0"></span>
                             2 Optimizations: 's' (small), 'f' (fast)
                         </li>
                     </ul>
                 </div>
 
-                <div class="bg-slate-800/50 p-6 rounded-xl">
-                    <h3 class="text-2xl font-semibold mb-4">Important Notes</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-yellow-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                            </svg>
+                <div class="card-glass rounded-xl p-8 reveal">
+                    <h3 class="text-lg font-semibold text-white mb-6">Important Notes</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3 text-sm text-gray-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 flex-shrink-0 mt-1.5"></span>
                             Minimum 73 CKB per quantum-safe cell
                         </li>
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-yellow-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                            </svg>
+                        <li class="flex items-start gap-3 text-sm text-gray-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 flex-shrink-0 mt-1.5"></span>
                             Light client sync takes 10-30 seconds
                         </li>
-                        <li class="flex items-start">
-                            <svg class="w-5 h-5 text-yellow-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                            </svg>
+                        <li class="flex items-start gap-3 text-sm text-gray-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 flex-shrink-0 mt-1.5"></span>
                             Offline signing supported for maximum security
                         </li>
                     </ul>
@@ -236,20 +293,25 @@
         </div>
     </section>
 
+    <div class="section-line"></div>
+
     <!-- Binary Verifier Section -->
-    <section id="verify" class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/50">
+    <section id="verify" class="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 section-glow">
         <div id="binary-verifier">
             <div class="max-w-4xl mx-auto">
-                <div class="bg-slate-800 rounded-xl p-8 quantum-glow">
-                    <div class="text-center mb-8">
-                        <h3 class="text-3xl font-bold mb-2">Binary Signature Verifier</h3>
-                        <p class="text-gray-300">Verify application binaries using SPHINCS+ quantum-resistant signatures</p>
-                    </div>
+                <!-- Header -->
+                <div class="text-center mb-12 reveal">
+                    <p class="text-xs text-quantum-accent uppercase tracking-[0.2em] mb-4">Verification Tool</p>
+                    <h2 class="font-display text-4xl sm:text-5xl text-white mb-4">Binary Signature Verifier</h2>
+                    <p class="text-gray-400 max-w-lg mx-auto">Verify application binaries using SPHINCS+ quantum-resistant signatures.</p>
+                </div>
 
+                <!-- Verifier Form -->
+                <div class="card-glass rounded-2xl p-6 sm:p-10 reveal">
                     <!-- SPHINCS+ Variant Selector -->
-                    <div class="mb-6">
-                        <label class="block text-sm font-semibold mb-2">SPHINCS+ Variant</label>
-                        <select id="variant-select" class="w-full bg-slate-700 text-white px-4 py-3 rounded-lg border border-slate-600 focus:border-quantum-accent focus:outline-none">
+                    <div class="mb-8">
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">SPHINCS+ Variant</label>
+                        <select id="variant-select" class="w-full input-refined px-4 py-3 rounded-lg font-mono text-sm appearance-none cursor-pointer" style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E&quot;); background-position: right 12px center; background-repeat: no-repeat; background-size: 20px; padding-right: 40px;">
                             <option value="SHA2-128s" selected>SHA2-128s</option>
                             <option value="SHA2-128f">SHA2-128f</option>
                             <option value="SHA2-192s">SHA2-192s</option>
@@ -263,64 +325,73 @@
                             <option value="SHAKE-256s">SHAKE-256s</option>
                             <option value="SHAKE-256f">SHAKE-256f</option>
                         </select>
-                        <p class="text-sm text-gray-400 mt-2">Select the SPHINCS+ parameter set used to sign the binary</p>
+                        <p class="text-xs text-gray-500 mt-2">Select the SPHINCS+ parameter set used to sign the binary.</p>
                     </div>
 
                     <!-- Binary File Upload -->
-                    <div class="mb-6">
-                        <label class="block text-sm font-semibold mb-2">Binary File</label>
-                        <div class="relative">
-                            <input
-                                type="file"
-                                id="binary-file-input"
-                                class="hidden"
-                                accept="*"
-                            />
-                            <button
-                                id="binary-file-button"
-                                class="w-full bg-slate-700 hover:bg-slate-600 text-white px-4 py-3 rounded-lg border border-slate-600 transition text-left flex items-center justify-between"
-                            >
-                                <span id="binary-file-label" class="text-gray-400">Choose binary file...</span>
-                                <svg class="w-5 h-5 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div id="binary-file-info" class="hidden mt-2 p-3 bg-slate-700 rounded-lg">
-                            <p class="text-sm text-gray-300"><span class="font-semibold">File:</span> <span id="binary-file-name"></span></p>
-                            <p class="text-sm text-gray-300"><span class="font-semibold">Size:</span> <span id="binary-file-size"></span></p>
-                            <p class="text-sm text-gray-300"><span class="font-semibold">SHA256:</span> <span id="binary-file-sha256" class="font-mono text-xs break-all">Calculating...</span></p>
+                    <div class="mb-8">
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Binary File</label>
+                        <input
+                            type="file"
+                            id="binary-file-input"
+                            class="hidden"
+                            accept="*"
+                        />
+                        <button
+                            id="binary-file-button"
+                            class="w-full drop-zone rounded-xl p-6 text-center group"
+                        >
+                            <div class="flex flex-col items-center gap-3">
+                                <div class="w-12 h-12 rounded-full bg-quantum-accent/5 border border-quantum-accent/15 flex items-center justify-center group-hover:bg-quantum-accent/10 transition-colors">
+                                    <svg class="w-5 h-5 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span id="binary-file-label" class="text-sm text-gray-400">Click to choose a binary file or drag and drop</span>
+                                </div>
+                            </div>
+                        </button>
+                        <div id="binary-file-info" class="hidden mt-3 p-4 rounded-lg bg-quantum-surface border border-quantum-border">
+                            <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-xs">
+                                <span class="text-gray-500 font-medium">File</span>
+                                <span id="binary-file-name" class="text-gray-300 truncate"></span>
+                                <span class="text-gray-500 font-medium">Size</span>
+                                <span id="binary-file-size" class="text-gray-300"></span>
+                                <span class="text-gray-500 font-medium">SHA256</span>
+                                <span id="binary-file-sha256" class="font-mono text-gray-300 break-all">Calculating...</span>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Public Key Input -->
-                    <div class="mb-6">
-                        <label for="public-key-input" class="block text-sm font-semibold mb-2">Public Key (Hex)</label>
+                    <div class="mb-8">
+                        <label for="public-key-input" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Public Key (Hex)</label>
                         <textarea
                             id="public-key-input"
                             rows="3"
-                            class="w-full bg-slate-700 text-white px-4 py-3 rounded-lg border border-slate-600 focus:border-quantum-accent focus:outline-none font-mono text-sm"
+                            class="w-full input-refined px-4 py-3 rounded-lg font-mono text-sm resize-none"
                             placeholder="Enter the public key in hexadecimal format..."
                         ></textarea>
-                        <p class="text-sm text-gray-400 mt-2">Paste the SPHINCS+ public key used to sign the binary</p>
+                        <p class="text-xs text-gray-500 mt-2">Paste the SPHINCS+ public key used to sign the binary.</p>
                     </div>
 
                     <!-- Signature Input -->
-                    <div class="mb-6">
-                        <label for="signature-input" class="block text-sm font-semibold mb-2">Signature (Hex)</label>
+                    <div class="mb-8">
+                        <label for="signature-input" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Signature (Hex)</label>
                         <textarea
                             id="signature-input"
                             rows="4"
-                            class="w-full bg-slate-700 text-white px-4 py-3 rounded-lg border border-slate-600 focus:border-quantum-accent focus:outline-none font-mono text-sm"
+                            class="w-full input-refined px-4 py-3 rounded-lg font-mono text-sm resize-none"
                             placeholder="Enter the signature in hexadecimal format..."
                         ></textarea>
-                        <p class="text-sm text-gray-400 mt-2">Paste the SPHINCS+ signature for this binary</p>
+                        <p class="text-xs text-gray-500 mt-2">Paste the SPHINCS+ signature for this binary.</p>
                     </div>
 
                     <!-- Verify Button -->
                     <button
                         id="verify-button"
-                        class="w-full bg-quantum-primary hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold text-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                        class="w-full btn-primary disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none"
                         onclick="verifyBinarySignature()"
                     >
                         Verify Signature
@@ -332,44 +403,40 @@
 
                 <!-- Info Section -->
                 <div class="mt-8 grid md:grid-cols-2 gap-6">
-                    <div class="bg-slate-800/50 p-6 rounded-xl">
-                        <h4 class="text-lg font-semibold mb-3 flex items-center">
-                            <svg class="w-5 h-5 text-quantum-accent mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                            </svg>
+                    <div class="card-glass rounded-xl p-6 reveal">
+                        <h4 class="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-quantum-accent"></span>
                             How It Works
                         </h4>
-                        <ol class="space-y-2 text-sm text-gray-300 list-decimal list-inside">
-                            <li>Upload the binary file you want to verify</li>
-                            <li>Select the SPHINCS+ variant that was used for signing</li>
-                            <li>Enter the public key and signature (both in hex format)</li>
-                            <li>Click "Verify Signature" to check authenticity</li>
+                        <ol class="space-y-3 text-sm text-gray-400 list-decimal list-inside">
+                            <li>Upload the binary file you want to verify.</li>
+                            <li>Select the SPHINCS+ variant that was used for signing.</li>
+                            <li>Enter the public key and signature (both in hex format).</li>
+                            <li>Click "Verify Signature" to check authenticity.</li>
                         </ol>
                     </div>
 
-                    <div class="bg-slate-800/50 p-6 rounded-xl">
-                        <h4 class="text-lg font-semibold mb-3 flex items-center">
-                            <svg class="w-5 h-5 text-yellow-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                            </svg>
+                    <div class="card-glass rounded-xl p-6 reveal">
+                        <h4 class="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
                             Security Notes
                         </h4>
-                        <ul class="space-y-2 text-sm text-gray-300">
-                            <li class="flex items-start">
-                                <span class="text-quantum-accent mr-2">•</span>
-                                <span>All verification happens locally in your browser</span>
+                        <ul class="space-y-3 text-sm text-gray-400">
+                            <li class="flex items-start gap-2">
+                                <span class="text-quantum-accent mt-0.5">&#8250;</span>
+                                <span>All verification happens locally in your browser.</span>
                             </li>
-                            <li class="flex items-start">
-                                <span class="text-quantum-accent mr-2">•</span>
-                                <span>No data is sent to any server</span>
+                            <li class="flex items-start gap-2">
+                                <span class="text-quantum-accent mt-0.5">&#8250;</span>
+                                <span>No data is sent to any server.</span>
                             </li>
-                            <li class="flex items-start">
-                                <span class="text-quantum-accent mr-2">•</span>
-                                <span>Binary is hashed using SHA-256 before verification</span>
+                            <li class="flex items-start gap-2">
+                                <span class="text-quantum-accent mt-0.5">&#8250;</span>
+                                <span>Binary is hashed using SHA-256 before verification.</span>
                             </li>
-                            <li class="flex items-start">
-                                <span class="text-quantum-accent mr-2">•</span>
-                                <span>Quantum-resistant SPHINCS+ cryptography</span>
+                            <li class="flex items-start gap-2">
+                                <span class="text-quantum-accent mt-0.5">&#8250;</span>
+                                <span>Quantum-resistant SPHINCS+ cryptography.</span>
                             </li>
                         </ul>
                     </div>
@@ -378,82 +445,94 @@
         </div>
     </section>
 
+    <div class="section-line"></div>
+
     <!-- Installation Section -->
-    <section id="installation" class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/50">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Get Started</h2>
-                <p class="text-xl text-gray-300">Download Quantum Purse or build from source</p>
+    <section id="installation" class="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 grid-bg">
+        <div class="relative z-10 max-w-7xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <p class="text-xs text-quantum-emerald uppercase tracking-[0.2em] mb-4">Get Started</p>
+                <h2 class="font-display text-4xl sm:text-5xl text-white mb-4">Download Quantum Purse</h2>
+                <p class="text-gray-400 max-w-lg mx-auto">Download pre-built binaries or build from source.</p>
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-12 items-stretch">
+            <div class="grid lg:grid-cols-2 gap-8 items-stretch">
                 <!-- Pre-built Binaries -->
-                <div class="flex flex-col">
-                    <h3 class="text-2xl font-semibold mb-6">Download Pre-built Binaries</h3>
-                    <a href="https://github.com/tea2x/quantum-purse/releases" target="_blank" class="block bg-slate-800 p-4 rounded-lg hover:bg-slate-700 transition">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h4 class="font-semibold">Latest Release</h4>
-                                <p class="text-sm text-gray-400">Available for macOS (Apple Silicon & Intel), Windows, and Linux.</p>
-                            </div>
-                            <svg class="w-6 h-6 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                <div class="flex flex-col reveal">
+                    <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Download Pre-built Binaries</h3>
+                    <a href="https://github.com/tea2x/quantum-purse/releases" target="_blank" class="card-glass rounded-xl p-6 flex items-center justify-between group">
+                        <div>
+                            <h4 class="font-semibold text-white mb-1">Latest Release</h4>
+                            <p class="text-sm text-gray-400">Available for macOS (Apple Silicon & Intel), Windows, and Linux.</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-quantum-accent/10 border border-quantum-accent/20 flex items-center justify-center flex-shrink-0 ml-4 group-hover:bg-quantum-accent/20 transition-colors">
+                            <svg class="w-4 h-4 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
                             </svg>
                         </div>
                     </a>
-                    <div class="mt-auto pt-6 p-4 bg-yellow-900/20 border border-yellow-700 rounded-lg">
-                        <p class="text-sm text-yellow-300">
-                            <strong>Note:</strong> These are not reproducible builds. For maximum security, consider building from source or ask a trusted distributer to sign the binaries for you.
-                        </p>
+                    <div class="mt-auto pt-6">
+                        <div class="rounded-xl p-4 border border-yellow-700/30 bg-yellow-900/10">
+                            <p class="text-xs text-yellow-300/80 leading-relaxed">
+                                <span class="font-semibold text-yellow-300">Note:</span> These are not reproducible builds. For maximum security, consider building from source or ask a trusted distributer to sign the binaries for you.
+                            </p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Build from Source -->
-                <div class="flex flex-col">
-                    <h3 class="text-2xl font-semibold mb-6">Build from Source</h3>
-                    <a href="https://github.com/quantumpurse/quantum-purse?tab=readme-ov-file#build-from-source" target="_blank" class="block bg-slate-800 p-4 rounded-lg hover:bg-slate-700 transition">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h4 class="font-semibold">Build Instructions</h4>
-                                <p class="text-sm text-gray-400">View requirements and platform-specific commands on GitHub.</p>
-                            </div>
-                            <svg class="w-6 h-6 text-quantum-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                <div class="flex flex-col reveal">
+                    <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Build from Source</h3>
+                    <a href="https://github.com/quantumpurse/quantum-purse?tab=readme-ov-file#build-from-source" target="_blank" class="card-glass rounded-xl p-6 flex items-center justify-between group">
+                        <div>
+                            <h4 class="font-semibold text-white mb-1">Build Instructions</h4>
+                            <p class="text-sm text-gray-400">View requirements and platform-specific commands on GitHub.</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-quantum-secondary/10 border border-quantum-secondary/20 flex items-center justify-center flex-shrink-0 ml-4 group-hover:bg-quantum-secondary/20 transition-colors">
+                            <svg class="w-4 h-4 text-quantum-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                             </svg>
                         </div>
                     </a>
-                    <div class="mt-auto pt-6 p-4 bg-yellow-900/20 border border-yellow-700 rounded-lg">
-                        <p class="text-sm text-yellow-300">
-                            <strong>Tip:</strong> Building from source lets you verify the code yourself and is the most secure option currently.
-                        </p>
+                    <div class="mt-auto pt-6">
+                        <div class="rounded-xl p-4 border border-quantum-accent/20 bg-quantum-accent/5">
+                            <p class="text-xs text-quantum-accent/80 leading-relaxed">
+                                <span class="font-semibold text-quantum-accent">Tip:</span> Building from source lets you verify the code yourself and is the most secure option currently.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <div class="section-line"></div>
+
     <!-- CTA Section -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-6">Ready for the Quantum Era?</h2>
-            <p class="text-xl text-gray-300 mb-8">
-                Protect your CKB assets today with quantum-resistant cryptography
+    <section class="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <!-- Background orb -->
+        <div class="hero-orb" style="top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; height: 400px; opacity: 0.3;"></div>
+
+        <div class="relative z-10 max-w-3xl mx-auto text-center">
+            <h2 class="font-display text-4xl sm:text-5xl text-white mb-6 reveal">Ready for the Quantum Era?</h2>
+            <p class="text-gray-400 mb-10 reveal" style="animation-delay: 100ms;">
+                Protect your CKB assets today with quantum-resistant cryptography.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://github.com/tea2x/quantum-purse" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition inline-flex items-center justify-center">
-                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal" style="animation-delay: 200ms;">
+                <a href="https://github.com/tea2x/quantum-purse" target="_blank" class="btn-secondary inline-flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                     </svg>
                     View on GitHub
                 </a>
-                <a href="https://t.me/quantumpurse" target="_blank" class="bg-quantum-primary hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition inline-flex items-center justify-center">
-                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <a href="https://t.me/quantumpurse" target="_blank" class="btn-primary inline-flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.548.223l.188-2.85 5.18-4.68c.223-.198-.05-.308-.345-.11l-6.4 4.02-2.76-.918c-.6-.187-.612-.6.125-.89l10.782-4.156c.5-.18.943.12.78.88z"/>
                     </svg>
                     Join Telegram
                 </a>
-                <a href="https://x.com/quantumpurse" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition inline-flex items-center justify-center">
-                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <a href="https://x.com/quantumpurse" target="_blank" class="btn-secondary inline-flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                     </svg>
                     Follow on X
@@ -463,41 +542,50 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 px-4 sm:px-6 lg:px-8 border-t border-slate-800">
+    <footer class="py-16 px-4 sm:px-6 lg:px-8 border-t border-quantum-border/50">
         <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-3 gap-12">
                 <div>
-                    <h3 class="text-xl font-bold gradient-text mb-4">Quantum Purse</h3>
-                    <p class="text-gray-400 text-sm">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 relative">
+                            <div class="absolute inset-0 rotate-45 border border-quantum-accent/30 rounded-sm"></div>
+                            <div class="absolute inset-1 rotate-12 border border-quantum-secondary/20 rounded-sm"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-1 h-1 bg-quantum-accent rounded-full"></div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-semibold text-white">Quantum Purse</span>
+                    </div>
+                    <p class="text-sm text-gray-500 leading-relaxed">
                         Quantum-safe desktop wallet for the CKB blockchain.
                         Securing digital assets against quantum threats.
                     </p>
                 </div>
 
                 <div>
-                    <h4 class="font-semibold mb-4">Resources</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="https://github.com/tea2x/quantum-purse" target="_blank" class="hover:text-white transition">GitHub Repository</a></li>
-                        <li><a href="https://quantum-purse.vercel.app/" target="_blank" class="hover:text-white transition">Web Demo</a></li>
-                        <li><a href="https://scalebit.xyz/reports/Quantum-Purse-Audit-Report-12-15-2025.pdf" target="_blank" class="hover:text-white transition">Security Audit</a></li>
-                        <li><a href="https://github.com/tea2x/quantum-purse/releases" target="_blank" class="hover:text-white transition">Downloads</a></li>
+                    <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Resources</h4>
+                    <ul class="space-y-3">
+                        <li><a href="https://github.com/tea2x/quantum-purse" target="_blank" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">GitHub Repository</a></li>
+                        <li><a href="https://quantum-purse.vercel.app/" target="_blank" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">Web Demo</a></li>
+                        <li><a href="https://scalebit.xyz/reports/Quantum-Purse-Audit-Report-12-15-2025.pdf" target="_blank" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">Security Audit</a></li>
+                        <li><a href="https://github.com/tea2x/quantum-purse/releases" target="_blank" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">Downloads</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-semibold mb-4">Community</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="https://t.me/quantumpurse" target="_blank" class="hover:text-white transition">Telegram Group</a></li>
-                        <li><a href="https://x.com/quantumpurse" target="_blank" class="hover:text-white transition">X (Twitter)</a></li>
-                        <li><a href="https://github.com/tea2x/quantum-purse/issues" target="_blank" class="hover:text-white transition">Report Issues</a></li>
-                        <li><a href="https://www.nervos.org/" target="_blank" class="hover:text-white transition">Nervos Network</a></li>
-                        <li><a href="https://github.com/cryptape/quantum-resistant-lock-script" target="_blank" class="hover:text-white transition">Lock Script</a></li>
+                    <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Community</h4>
+                    <ul class="space-y-3">
+                        <li><a href="https://t.me/quantumpurse" target="_blank" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">Telegram Group</a></li>
+                        <li><a href="https://x.com/quantumpurse" target="_blank" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">X (Twitter)</a></li>
+                        <li><a href="https://github.com/tea2x/quantum-purse/issues" target="_blank" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">Report Issues</a></li>
+                        <li><a href="https://www.nervos.org/" target="_blank" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">Nervos Network</a></li>
+                        <li><a href="https://github.com/cryptape/quantum-resistant-lock-script" target="_blank" class="text-sm text-gray-500 hover:text-white transition-colors duration-300">Lock Script</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="mt-8 pt-8 border-t border-slate-800 text-center text-gray-400 text-sm">
-                <p>© 2025 Quantum Purse. Use at your own risk. This is pioneering quantum-resistant technology.</p>
+            <div class="mt-12 pt-8 border-t border-quantum-border/30 text-center">
+                <p class="text-xs text-gray-600">&copy; 2025 Quantum Purse. Use at your own risk. This is pioneering quantum-resistant technology.</p>
             </div>
         </div>
     </footer>
@@ -668,6 +756,25 @@
             if (binaryFileButton && binaryFileInput) {
                 binaryFileButton.addEventListener('click', function() {
                     binaryFileInput.click();
+                });
+
+                // Drag and drop support
+                binaryFileButton.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    binaryFileButton.classList.add('drag-over');
+                });
+
+                binaryFileButton.addEventListener('dragleave', function() {
+                    binaryFileButton.classList.remove('drag-over');
+                });
+
+                binaryFileButton.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    binaryFileButton.classList.remove('drag-over');
+                    if (e.dataTransfer.files.length > 0) {
+                        binaryFileInput.files = e.dataTransfer.files;
+                        binaryFileInput.dispatchEvent(new Event('change'));
+                    }
                 });
 
                 binaryFileInput.addEventListener('change', async function() {

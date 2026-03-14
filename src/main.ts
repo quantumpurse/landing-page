@@ -142,19 +142,50 @@ function showResult(type: 'success' | 'error' | 'loading', message: string): voi
 // Make verifyBinarySignature available globally
 (window as any).verifyBinarySignature = verifyBinarySignature;
 
-// Smooth scroll navigation
-document.addEventListener('DOMContentLoaded', () => {
-    // Mobile menu toggle (if we add a mobile menu button later)
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
+// ── Scroll-triggered reveal animations ───────────────────
+function initRevealAnimations(): void {
+    const revealElements = document.querySelectorAll('.reveal');
 
-    if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                // Unobserve after revealing to avoid re-triggering
+                observer.unobserve(entry.target);
+            }
         });
-    }
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -60px 0px'
+    });
 
-    // Smooth scrolling for anchor links
+    revealElements.forEach(el => observer.observe(el));
+}
+
+// ── Navbar scroll effect ─────────────────────────────────
+function initNavbarScroll(): void {
+    const navbar = document.getElementById('main-nav');
+    if (!navbar) return;
+
+    let lastScrollY = 0;
+
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+
+        if (scrollY > 100) {
+            navbar.style.background = 'rgba(13, 19, 33, 0.9)';
+            navbar.style.boxShadow = '0 1px 0 rgba(30, 41, 59, 0.5)';
+        } else {
+            navbar.style.background = 'rgba(13, 19, 33, 0.6)';
+            navbar.style.boxShadow = 'none';
+        }
+
+        lastScrollY = scrollY;
+    }, { passive: true });
+}
+
+// ── Smooth scrolling for anchor links ────────────────────
+function initSmoothScroll(): void {
     const anchors = document.querySelectorAll('a[href^="#"]');
     anchors.forEach(anchor => {
         anchor.addEventListener('click', (e: Event) => {
@@ -163,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (target && target !== '#') {
                 const element = document.querySelector(target);
                 if (element) {
-                    const offset = 80; // Account for fixed navbar
+                    const offset = 80;
                     const elementPosition = element.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -171,58 +202,46 @@ document.addEventListener('DOMContentLoaded', () => {
                         top: offsetPosition,
                         behavior: 'smooth'
                     });
+
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
                 }
             }
         });
     });
+}
 
-    // Add scroll effect to navbar
-    const navbar = document.querySelector('nav');
-    if (navbar) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-lg');
-            } else {
-                navbar.classList.remove('shadow-lg');
-            }
+// ── Mobile menu toggle ───────────────────────────────────
+function initMobileMenu(): void {
+    const button = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+
+    if (button && menu) {
+        button.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
         });
     }
+}
 
-    // Intersection Observer for fade-in animations
-    const observerOptions: IntersectionObserverInit = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('opacity-100', 'translate-y-0');
-                entry.target.classList.remove('opacity-0', 'translate-y-4');
-            }
-        });
-    }, observerOptions);
-
-    // Add animation classes to sections
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
-        observer.observe(section);
-    });
-
-    // Copy to clipboard functionality for code blocks
+// ── Copy to clipboard for code blocks ────────────────────
+function initCodeCopy(): void {
     const codeBlocks = document.querySelectorAll('pre code');
     codeBlocks.forEach(block => {
         const wrapper = block.parentElement;
         if (wrapper) {
             const button = document.createElement('button');
-            button.className = 'absolute top-2 right-2 bg-slate-700 hover:bg-slate-600 text-gray-300 px-2 py-1 rounded text-sm transition';
+            button.className = 'absolute top-2 right-2 text-xs text-gray-500 hover:text-white px-2 py-1 rounded border border-quantum-border bg-quantum-surface transition-colors';
             button.textContent = 'Copy';
             button.addEventListener('click', () => {
                 navigator.clipboard.writeText(block.textContent || '').then(() => {
                     button.textContent = 'Copied!';
+                    button.classList.add('text-quantum-accent', 'border-quantum-accent/30');
                     setTimeout(() => {
                         button.textContent = 'Copy';
+                        button.classList.remove('text-quantum-accent', 'border-quantum-accent/30');
                     }, 2000);
                 });
             });
@@ -230,51 +249,13 @@ document.addEventListener('DOMContentLoaded', () => {
             wrapper.appendChild(button);
         }
     });
-
-    // Add particle effect to hero section (optional quantum effect)
-    const hero = document.getElementById('hero');
-    if (hero) {
-        createQuantumParticles(hero);
-    }
-});
-
-// Create quantum particle effect
-function createQuantumParticles(container: HTMLElement): void {
-    const particleCount = 30;
-    const particles: HTMLDivElement[] = [];
-
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'absolute w-1 h-1 bg-quantum-accent rounded-full opacity-30';
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        particle.style.animation = `float ${10 + Math.random() * 20}s infinite ease-in-out`;
-        particle.style.animationDelay = `${Math.random() * 5}s`;
-        container.appendChild(particle);
-        particles.push(particle);
-    }
-
-    // Add floating animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-                opacity: 0.3;
-            }
-            25% {
-                transform: translateY(-20px) translateX(10px);
-                opacity: 0.6;
-            }
-            50% {
-                transform: translateY(-10px) translateX(-10px);
-                opacity: 0.3;
-            }
-            75% {
-                transform: translateY(-30px) translateX(5px);
-                opacity: 0.5;
-            }
-        }
-    `;
-    document.head.appendChild(style);
 }
+
+// ── Initialize everything on DOM ready ───────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    initRevealAnimations();
+    initNavbarScroll();
+    initSmoothScroll();
+    initMobileMenu();
+    initCodeCopy();
+});
