@@ -108,7 +108,7 @@
         </div>
 
         <!-- Scroll indicator -->
-        <div class="absolute bottom-6 left-0 right-0 mx-auto w-fit flex flex-col items-center gap-2 text-gray-500 animate-float-slow">
+        <div class="absolute bottom-4 left-0 right-0 mx-auto w-fit flex flex-col items-center gap-2 text-gray-500 animate-float-slow">
             <span class="text-xs uppercase tracking-widest">Scroll</span>
             <div class="w-px h-8 bg-gradient-to-b from-gray-500 to-transparent"></div>
         </div>
@@ -501,6 +501,45 @@
 
     <div class="section-line"></div>
 
+    <!-- What's Next Section -->
+    <section class="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 section-glow">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <p class="text-xs text-quantum-emerald uppercase tracking-[0.2em] mb-4">Roadmap</p>
+                <h2 class="font-display text-4xl sm:text-5xl text-white mb-4">What's Next</h2>
+                <p class="text-gray-400 max-w-lg mx-auto">The next generation of quantum-resistant security.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 stagger">
+                <!-- Quantum Purse V2 -->
+                <div class="rounded-xl p-8 border border-dashed border-quantum-accent/20 bg-quantum-surface-light/30 relative overflow-hidden reveal group transition-all duration-500 hover:border-quantum-accent/40 hover:bg-quantum-surface-light/50">
+                    <!-- Subtle corner glow -->
+                    <div class="absolute -top-12 -right-12 w-32 h-32 bg-quantum-accent/5 rounded-full blur-2xl group-hover:bg-quantum-accent/10 transition-all duration-700"></div>
+
+                    <div class="relative z-10">
+                        <span class="tag border-quantum-emerald/30 text-quantum-emerald text-[10px] mb-5 inline-flex">Coming Soon</span>
+                        <h3 class="text-xl font-semibold text-white mb-2">Quantum Purse V2</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">A new security model that balances usability and protection, with faster signing and a feature-rich wallet experience.</p>
+                    </div>
+                </div>
+
+                <!-- Hardware Wallet -->
+                <div class="rounded-xl p-8 border border-dashed border-quantum-secondary/20 bg-quantum-surface-light/30 relative overflow-hidden reveal group transition-all duration-500 hover:border-quantum-secondary/40 hover:bg-quantum-surface-light/50">
+                    <!-- Subtle corner glow -->
+                    <div class="absolute -top-12 -right-12 w-32 h-32 bg-quantum-secondary/5 rounded-full blur-2xl group-hover:bg-quantum-secondary/10 transition-all duration-700"></div>
+
+                    <div class="relative z-10">
+                        <span class="tag border-quantum-emerald/30 text-quantum-emerald text-[10px] mb-5 inline-flex">Coming Soon</span>
+                        <h3 class="text-xl font-semibold text-white mb-2">Hardware Wallet</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">Physical quantum-resistant security. Air-gapped signing with SPHINCS+ in dedicated hardware.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-line"></div>
+
     <!-- CTA Section -->
     <section class="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <!-- Background orb -->
@@ -572,14 +611,11 @@
 
                 <div>
                     <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Support</h4>
-                    <p class="text-xs text-gray-500 mb-3">Powered by caffeine and CKB.</p>
-                    <div class="w-28 h-28 rounded-lg border border-quantum-border/60 bg-white p-1 mb-3">
+                    <p class="text-xs text-gray-500 mb-3">Every CKByte counts!</p>
+                    <div class="w-28 h-28 rounded-lg border border-quantum-border/60 bg-white p-1 mb-1.5">
                         <img src="assets/QR.png" alt="CKB donation address" class="w-full h-full rounded">
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs text-gray-500 font-mono truncate max-w-[180px]">ckb1...tr7x</span>
-                        <button id="copy-ckb-address" class="text-xs text-quantum-accent hover:text-quantum-accent/80 underline underline-offset-2 decoration-quantum-accent/30 transition-colors" title="Copy full address">Copy</button>
-                    </div>
+                    <button id="copy-ckb-address" class="text-xs text-gray-500 hover:text-quantum-accent font-mono underline underline-offset-2 decoration-gray-600 hover:decoration-quantum-accent/50 transition-colors cursor-pointer" title="Click to copy full address">ckb1qq...y86tr7x</button>
                 </div>
             </div>
 
@@ -823,8 +859,10 @@
                     const address = 'ckb1qqcz6dvc97r9a097mwdfxc8yq5cw6v4dhrsskshmhecdsvf07l8d7q25sjcjdn0earckul5aa7w3tjs9mvs8mt34r2patl934fv0ujwjpy86tr7x';
                     navigator.clipboard.writeText(address).then(function() {
                         copyBtn.textContent = 'Copied!';
+                        copyBtn.classList.add('text-quantum-accent');
                         setTimeout(function() {
-                            copyBtn.textContent = 'Copy';
+                            copyBtn.textContent = 'ckb1qq...y86tr7x';
+                            copyBtn.classList.remove('text-quantum-accent');
                         }, 2000);
                     });
                 });
