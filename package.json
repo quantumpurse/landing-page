@@ -1,7 +1,7 @@
 {
   "name": "landing-page",
   "version": "1.0.0",
-  "description": "**Disclaimer:** While this project has been carefully developed and [externally audited](https://scalebit.xyz/reports/Quantum-Purse-Audit-Report-12-15-2025.pdf) for security, it represents pioneering work in quantum-resistant blockchain technology - **USE AT YOUR OWN RISK.**",
+  "description": "A Quantum-Resistant Cryptocurrency wallet",
   "main": "index.js",
   "scripts": {
     "build:css": "npx tailwindcss -i ./src/styles.css -o ./dist/styles.css --minify",
