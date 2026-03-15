@@ -30,6 +30,16 @@
 		position: relative;
 	}
 
+	/* Ensure page content sits above the wavelength background layer */
+	body > nav,
+	body > section,
+	body > div,
+	body > footer,
+	body > script {
+		position: relative;
+		z-index: 1;
+	}
+
 	/* Noise texture overlay applied to the whole page */
 	body::before {
 		content: "";
@@ -41,6 +51,19 @@
 		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 		background-repeat: repeat;
 		background-size: 256px 256px;
+	}
+
+	/* Wavelength background — flowing wave curves across the page */
+	body::after {
+		content: "";
+		position: fixed;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='wg1' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%2306b6d4' stop-opacity='0'/%3E%3Cstop offset='20%25' stop-color='%2306b6d4' stop-opacity='0.35'/%3E%3Cstop offset='50%25' stop-color='%237c3aed' stop-opacity='0.25'/%3E%3Cstop offset='80%25' stop-color='%23d97706' stop-opacity='0.3'/%3E%3Cstop offset='100%25' stop-color='%23d97706' stop-opacity='0'/%3E%3C/linearGradient%3E%3ClinearGradient id='wg2' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%23d97706' stop-opacity='0'/%3E%3Cstop offset='25%25' stop-color='%23d97706' stop-opacity='0.3'/%3E%3Cstop offset='50%25' stop-color='%2306b6d4' stop-opacity='0.2'/%3E%3Cstop offset='75%25' stop-color='%237c3aed' stop-opacity='0.3'/%3E%3Cstop offset='100%25' stop-color='%2306b6d4' stop-opacity='0'/%3E%3C/linearGradient%3E%3ClinearGradient id='wg3' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%237c3aed' stop-opacity='0'/%3E%3Cstop offset='30%25' stop-color='%23d97706' stop-opacity='0.25'/%3E%3Cstop offset='60%25' stop-color='%2306b6d4' stop-opacity='0.2'/%3E%3Cstop offset='100%25' stop-color='%237c3aed' stop-opacity='0'/%3E%3C/linearGradient%3E%3ClinearGradient id='wg4' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%2306b6d4' stop-opacity='0'/%3E%3Cstop offset='35%25' stop-color='%237c3aed' stop-opacity='0.2'/%3E%3Cstop offset='65%25' stop-color='%23d97706' stop-opacity='0.25'/%3E%3Cstop offset='100%25' stop-color='%2306b6d4' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cfilter id='wglow'%3E%3CfeGaussianBlur stdDeviation='2' result='blur'/%3E%3CfeMerge%3E%3CfeMergeNode in='blur'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23wglow)'%3E%3Cpath d='M0,320 C120,260 240,380 360,320 C480,260 600,360 720,310 C840,260 960,380 1080,330 C1200,280 1320,360 1440,320' fill='none' stroke='url(%23wg1)' stroke-width='2'/%3E%3Cpath d='M0,370 C160,310 280,430 420,370 C560,310 640,410 780,360 C920,310 1040,420 1180,370 C1320,320 1380,400 1440,360' fill='none' stroke='url(%23wg2)' stroke-width='1.8'/%3E%3Cpath d='M0,415 C100,360 220,470 360,410 C500,350 620,460 760,415 C900,370 1020,460 1160,410 C1300,360 1380,440 1440,415' fill='none' stroke='url(%23wg3)' stroke-width='1.5'/%3E%3Cpath d='M0,455 C140,405 260,510 400,455 C540,400 660,500 800,455 C940,410 1060,510 1200,465 C1340,420 1400,490 1440,460' fill='none' stroke='url(%23wg1)' stroke-width='1.2'/%3E%3Cpath d='M0,500 C180,450 300,550 440,500 C580,450 700,540 840,500 C980,460 1100,550 1240,510 C1380,470 1420,530 1440,505' fill='none' stroke='url(%23wg4)' stroke-width='1'/%3E%3Cpath d='M0,540 C130,495 260,580 400,540 C540,500 660,575 800,540 C940,505 1060,580 1200,545 C1340,510 1400,560 1440,545' fill='none' stroke='url(%23wg2)' stroke-width='0.8'/%3E%3Cpath d='M0,575 C170,535 290,610 430,575 C570,540 690,610 830,575 C970,540 1090,615 1230,580 C1370,545 1420,595 1440,580' fill='none' stroke='url(%23wg3)' stroke-width='0.6'/%3E%3C/g%3E%3C/svg%3E");
+		background-size: 200% 100%;
+		background-repeat: no-repeat;
+		animation: wavelength-drift 25s ease-in-out infinite alternate;
 	}
 
 	::selection {
@@ -382,6 +405,11 @@
 @keyframes lattice-shift {
 	0% { transform: translateY(0); }
 	100% { transform: translateY(-60px); }
+}
+
+@keyframes wavelength-drift {
+	0% { background-position: 0% 50%; }
+	100% { background-position: 100% 50%; }
 }
 
 /* ── Scrollbar ─────────────────────────────────────────── */
